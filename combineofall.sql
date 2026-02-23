@@ -132,6 +132,11 @@ ON track(album_id,name);
 --CALL--
 SELECT *FROM track WHERE album_id=19;
 
+--TEST--
+SELECT *FROM artist WHERE artist_id=2;
+
+SELECT *from track WHERE track_id=2;
+
 
 
 
@@ -163,3 +168,4 @@ SELECT
 FROM information_schema.columns
 WHERE table_name IN ('customer', 'playlist')
 ORDER BY table_name, column_name;
+
