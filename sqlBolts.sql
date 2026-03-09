@@ -4,3 +4,14 @@ SELECT city
 from North_american_cities
 where country='United States'
 order by latitude desc;
+
+--2.List all the cities west of Chicago, ordered from west to east 
+SELECT city from  North_american_cities
+where longitude < -87.629798
+ORDER BY longitude ASC;
+
+--3.List the third and fourth largest cities (by population) in the United States and their population
+SELECT city from north_american_cities
+where country='United States'
+ORDER BY population desc 
+limit 2 offset 2;
