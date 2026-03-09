@@ -15,3 +15,7 @@ SELECT city from north_american_cities
 where country='United States'
 ORDER BY population desc 
 limit 2 offset 2;
+--ALTER TABLE--
+--4.Add another column named Language with a TEXT data type to store the language that the movie was released in. Ensure that the default for this language is English
+ALTER TABLE movie
+ADD COLUMN LANGUAGE TEXT DEFAULT English;
