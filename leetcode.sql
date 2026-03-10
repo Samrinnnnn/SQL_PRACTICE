@@ -35,3 +35,18 @@ SELECT p.product_name,s.year,s.price
  from product p
  JOIN sales s ON p.product_id=s.product_id
  ORDER BY s.sale_id;
+
+--8.Write a solution to find the IDs of the users who visited without making any transactions and the number of times they made these types of visits.
+SELECT v.customer_id,COUNT(v.visit_id) as count_no_trans
+FROM visits v
+LEFT JOIN transactions t ON v.visit_id=t.visit_id
+WHERE t.transaction_id IS NULL
+GROUP BY v.customer_id;
+
+--9.Write a solution to find all dates' id with higher temperatures compared to its previous dates (yesterday).
+SELECT w1.id
+from weather w1
+where w1.temperature>(select w2.temperature
+ from weather w2 
+ where w2.recordDate=DATE_SUB(w1.recordDate,INTERVAL 1 DAY));
+
