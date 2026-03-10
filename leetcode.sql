@@ -76,6 +76,29 @@ AND e.subject_name=su.subject_name
 GROUP BY s.student_id,s.student_name,su.subject_name
 ORDER BY s.student_id, su.subject_name ;
 
+--13.Write a solution to find managers with at least five direct reports.
+SELECT 
+    query_name, 
+    ROUND(AVG(rating::numeric / position), 2) AS quality, 
+    ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100, 2) AS poor_query_percentage
+FROM queries
+GROUP BY query_name;
+
+--14.Write a solution to find the confirmation rate of each user.
+SELECT 
+    s.user_id,
+    ROUND(
+        COALESCE(
+            COUNT(c.user_id) FILTER (WHERE c.action = 'confirmed')::numeric 
+            / NULLIF(COUNT(c.user_id), 0), 
+        0), 
+    2) AS confirmation_rate
+FROM signups s
+LEFT JOIN confirmations c ON s.user_id = c.user_id
+GROUP BY s.user_id;
+
+
+
 
 
 
