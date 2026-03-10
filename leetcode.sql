@@ -59,6 +59,24 @@ AND a1.activity_type='start'
 AND a2.activity_type='end'
 GROUP BY machine_id;
 
+--11.Write a solution to report the name and bonus amount of each employee who satisfies either of the following:
+--The employee has a bonus less than 1000.
+--The employee did not get any bonus.
+SELECT e.name,b.bonus from employee e
+LEFT JOIN bonus b ON e.empId=b.empId
+where b.bonus<1000 
+OR b.bonus IS NULL;
+
+--12.Write a solution to find the number of times each student attended each exam.
+SELECT s.student_id,s.student_name,su.subject_name,COUNT(e.student_id) as attended_exams
+FROM students s
+CROSS JOIN subjects su
+LEFT JOIN examinations e ON s.student_id=e.student_id
+AND e.subject_name=su.subject_name
+GROUP BY s.student_id,s.student_name,su.subject_name
+ORDER BY s.student_id, su.subject_name ;
+
+
 
 
 
