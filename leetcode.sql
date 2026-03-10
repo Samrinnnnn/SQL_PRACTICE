@@ -50,3 +50,15 @@ where w1.temperature>(select w2.temperature
  from weather w2 
  where w2.recordDate=DATE_SUB(w1.recordDate,INTERVAL 1 DAY));
 
+--10.Write a solution to find the average time each machine takes to complete a process.
+SELECT a1.machine_id, round(avg(a2.timestamp-a1.timestamp),3) as processing_time
+from activity a1,a2
+where a1.machine_id=a2.machine_id
+AND a1.process_id=a2.process_id
+AND a1.activity_type='start'
+AND a2.activity_type='end'
+GROUP BY machine_id;
+
+
+
+
