@@ -104,6 +104,23 @@ from cinema
 where id %2 !=0 and  description!='boring'
 ORDER BY rating desc;
 
+--16.Write a solution to find the average selling price for each product. average_price should be rounded to 2 decimal places. If a product does not have any sold units, its average selling price is assumed to be 0.
+Select p.product_id,COALESCE(ROUND(SUM(p.price*u.units)::NUMERIC/SUM(u.units),2),0) as average_price
+FROM Prices p
+LEFT JOIN UnitsSold u ON p.product_id=u.product_id
+    AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY p.product_id;
+
+--17.Write an SQL query that reports the average experience years of all the employees for each project, rounded to 2 digits.
+SELECT p.project_id,ROUND(SUM(e.experience_years)/count(p.project_id)::NUMERIC,2) AS average_years
+FROM project p
+JOIN employee e ON p.employee_id=e.employee_id
+GROUP BY p.project_id
+ORDER BY project_id ASC;
+
+
+
+
 
 
 
