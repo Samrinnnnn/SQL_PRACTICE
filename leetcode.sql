@@ -96,6 +96,14 @@ SELECT
 FROM signups s
 LEFT JOIN confirmations c ON s.user_id = c.user_id
 GROUP BY s.user_id;
+--------------------------------BASIC AGGREGATE FUNCTION-------------------------------------------------
+--15.Write a solution to report the movies with an odd-numbered ID and a description that is not "boring".
+    --- Return the result table ordered by rating in descending order.
+SELECT id,movie,description,rating
+from cinema
+where id %2 !=0 and  description!='boring'
+ORDER BY rating desc;
+
 
 
 
