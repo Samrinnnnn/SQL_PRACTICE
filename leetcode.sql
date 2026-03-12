@@ -172,6 +172,12 @@ WHERE
     GROUP BY
       A2.player_id
   );
+--------------------------------SORTING AND GROUPING----------------
+--23.Write a solution to calculate the number of unique subjects each teacher teaches in the university.
+SELECT teacher_id,count(distinct subject_Id) AS cnt 
+FROM teacher t1
+group by teacher_id;
+
 
 
 
