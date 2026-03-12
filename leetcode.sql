@@ -143,6 +143,36 @@ GROUP BY query_name;
   FROM transactions
   GROUP BY month,country;
 
+--21.Write a solution to find the percentage of immediate orders in the first orders of all customers, rounded to 2 decimal places.
+SELECT 
+    ROUND(AVG(CASE WHEN order_date = customer_pref_delivery_date THEN 100.0 ELSE 0 END), 2) 
+    AS immediate_percentage
+FROM Delivery
+WHERE (customer_id, order_date) IN (
+    -- Subquery: Finds the first order date for every user
+    SELECT customer_id, MIN(order_date) 
+    FROM Delivery 
+    GROUP BY customer_id
+);
+--22.Write a solution to report the fraction of players that logged in again on the day after the day they first logged in, rounded to 2 decimal places. In other words, you need to determine the number of players who logged in on the day immediately following their initial login, and divide it by the number of total players.
+SELECT
+  ROUND(
+    COUNT(A1.player_id)
+    / (SELECT COUNT(DISTINCT A3.player_id) FROM Activity A3)
+  , 2) AS fraction
+FROM
+  Activity A1
+WHERE
+  (A1.player_id, DATE_SUB(A1.event_date, INTERVAL 1 DAY)) IN (
+    SELECT
+      A2.player_id,
+      MIN(A2.event_date)
+    FROM
+      Activity A2
+    GROUP BY
+      A2.player_id
+  );
+
 
 
 
