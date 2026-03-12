@@ -118,6 +118,32 @@ JOIN employee e ON p.employee_id=e.employee_id
 GROUP BY p.project_id
 ORDER BY project_id ASC;
 
+--18.Write a solution to find the percentage of the users registered in each contest rounded to two decimals.
+SELECT 
+    contest_id, 
+    ROUND(
+        COUNT(user_id) * 100.0 / (SELECT COUNT(*) FROM Users), 
+    2) AS percentage
+FROM Register
+GROUP BY contest_id
+ORDER BY percentage DESC, contest_id ASC;
+
+--19.Write a solution to find each query_name, the quality and poor_query_percentage.
+--Both quality and poor_query_percentage should be rounded to 2 decimal places.
+SELECT 
+    query_name, 
+    ROUND(AVG(rating::numeric / position), 2) AS quality, 
+    ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100, 2) AS poor_query_percentage
+FROM queries
+GROUP BY query_name;
+
+--20.Write an SQL query to find for each month and country, the number of transactions and their total amount, the number of approved transactions and their total amount.
+-- Write your PostgreSQL query statement below
+ SELECT  TO_CHAR(trans_date, 'YYYY-MM') AS month ,country,COUNT(id)::NUMERIC as trans_count, COUNT(state) FILTER (WHERE state='approved')::numeric as approved_count,SUM(amount) as trans_total_amount,COALESCE(SUM(amount) FILTER (WHERE state='approved'),0) as approved_total_amount
+  FROM transactions
+  GROUP BY month,country;
+
+
 
 
 
