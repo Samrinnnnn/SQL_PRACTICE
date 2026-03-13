@@ -187,6 +187,28 @@ WHERE activity_date > '2019-07-27'::date - INTERVAL '30 days'
   AND activity_date <= '2019-07-27'
 GROUP BY 1;
 
+--25.Write a solution to find all sales that occurred in the first year each product was sold.
+--For each product_id, identify the earliest year it appears in the Sales table.
+--Return all sales entries for that product in that year.
+--Return a table with the following columns: product_id, first_year, quantity, and price.
+SELECT product_id, year AS first_year, quantity, price
+FROM Sales
+WHERE (product_id, year) IN (
+    SELECT product_id, MIN(year)
+    FROM Sales
+    GROUP BY product_id
+);
+
+--26.Write a solution to find all the classes that have at least five students.
+SELECT class 
+from courses
+GROUP BY class
+HAVING count(student)>=5;
+
+
+
+
+
 
 
 
