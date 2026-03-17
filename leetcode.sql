@@ -205,7 +205,22 @@ from courses
 GROUP BY class
 HAVING count(student)>=5;
 
+--27.Write a solution that will, for each user, return the number of followers.
+--Return the result table ordered by user_id in ascending order.
+SELECT user_id, COUNT(follower_id) AS followers_count
+from followers
+GROUP BY user_id
+ORDER BY user_id ASC;
 
+--28.Find the largest single number. If there is no single number, report null.
+SELECT max(num) as num
+ FROM MyNumbers
+ where num IN(
+    SELECT num
+    FROM MyNumbers
+ GROUP BY num
+ HAVING COUNT(num)=1
+ )
 
 
 
