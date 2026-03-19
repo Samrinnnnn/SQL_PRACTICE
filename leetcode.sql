@@ -228,8 +228,15 @@ FROM customer
  GROUP BY customer_id
  HAVING COUNT(DISTINCT product_key)=(SELECT COUNT(product_key) FROM product);
 
-
-
+------------------------ADVANCED SELECT AND JOIN----------------------------
+--30.Write a solution to report ids and the names of all managers,the number of employees who report
+--directly to them,and the average age of reports rounded to the nearest integer.
+--Return the result table ordered by employee_id.\
+SELECT e1.employee_id,e1.name,COUNT(e1.employee_id) AS reports_count,ROUND(AVG(e2.age::NUMERIC)) AS average_age
+FROM Employees e1
+INNER JOIN employees e2 ON e1.employee_id=e2.reports_to
+GROUP BY e1.employee_id,e1.name
+ORDER BY e1.employee_id ASC;
 
 
 
