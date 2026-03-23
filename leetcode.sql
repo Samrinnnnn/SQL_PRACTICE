@@ -238,7 +238,18 @@ INNER JOIN employees e2 ON e1.employee_id=e2.reports_to
 GROUP BY e1.employee_id,e1.name
 ORDER BY e1.employee_id ASC;
 
-
+--31.Write a solution to report all the employess with their primary department. For
+--employees who belong to one department, report their only department.
+SELECT employee_id,department_id
+FROM employee
+WHERE primary_flag='Y'
+OR employee_id IN (
+ SELECT employee_id
+ FROM Employee
+ GROUP BY employee_id
+ HAVING COUNT(department_id) =1
+ ;
+ 
 
 
 
