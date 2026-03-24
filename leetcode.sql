@@ -250,7 +250,22 @@ OR employee_id IN (
  HAVING COUNT(department_id) =1
  ;
  
+--32. Report for every three line segments whether they can form a
+--triangle.Return the result table in any order.
+SELECT x,y,z,
+CASE WHEN x+y>z AND 
+x+z>y AND 
+y+z>x
+THEN 'Yes'
+ELSE 'No'
+END AS triangle
+FROM Triangle;
 
+--33. Find all numbers that appear at least three times consecutively.
+SELECT DISTINCT l1.num as ConsecutiveNums FROM logs l1
+JOIN logs l2 ON l1.id=l2.id-1
+JOIN logs l3 ON l1.id=l3.id-2
+WHERE l1.num=l2.num AND l2.num=l3.num;
 
 
 
