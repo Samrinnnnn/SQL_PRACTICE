@@ -267,9 +267,31 @@ JOIN logs l2 ON l1.id=l2.id-1
 JOIN logs l3 ON l1.id=l3.id-2
 WHERE l1.num=l2.num AND l2.num=l3.num;
 
+--34.Write a solution to find the prices of all products on the
+--date 2019-08-16. Return table in any order.
+SELECT DISTINCT product_id, 10 AS price
+FROM Products
+GROUP BY product_id
+HAVING MIN(change_date) > '2019-08-16'
+UNION
+SELECT product_id,new_price AS price
+FROM products
+WHERE (product_id,change_date) IN (
+ SELECT product_id,MAX(change_date)
+ FROM PRODUCTS
+ WHERE change_date<='2019-08-16'
+ GROUP BY
+ product_id)
 
-
-
+--35. Write a solution to find the person_name of the last person that can fit
+--on the bus without exceeding the weight limit.The test cases are generated such that the first person does not 
+--exceed the weight limit.
+SELECT q1.person_name
+FROM Queue q1 JOIN Queue q2 ON q1.turn>=q2.turn
+GROUP BY q1.turn,q1.person_name
+HAVING SUM(q2.weight)<= 1000
+ORDER BY SUM(q2.weight) DESC
+LIMIT 1
 
 
 
