@@ -293,7 +293,20 @@ HAVING SUM(q2.weight)<= 1000
 ORDER BY SUM(q2.weight) DESC
 LIMIT 1
 
-
+/* 36. Write a solution to calculate the number of bank accounts for
+each salary category.
+"Low Salary":All the salaries strictly less than $20000.
+"Average Salary": All the salaries in the inclusive range[$20000,$50000].
+"High Salary": All the salaries strictly greater than $50000. */
+SELECT 'Low Salary' AS category,
+COUNT(CASE WHEN income<20000 THEN 1 END) AS accounts_count
+FROM accounts
+UNION ALL
+SELECT 'Average Salary' AS category,
+COUNT(CASE WHEN income BETWEEN 20000 AND 50000 THEN 1 END) AS
+accounts_count
+FROM accounts
+ORDER BY accounts_count DESC;
 
 
 
