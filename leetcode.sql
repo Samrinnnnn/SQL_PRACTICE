@@ -307,6 +307,20 @@ COUNT(CASE WHEN income BETWEEN 20000 AND 50000 THEN 1 END) AS
 accounts_count
 FROM accounts
 ORDER BY accounts_count DESC;
+-----------------------SUBQUERIES-----------
+/* 37 . Find the IDs of employees whose salary is strictly less
+than 30000 and whose manager left company. When a manager leaves company,
+their information is deleted from the Employees table, but the reports still have 
+their manager_id set to the manager that left. Return the result table
+ordered by employee_id.*/
+SELECT e.employee_id
+FROM Employees e
+LEFT JOIN Employees m
+ON e.manager_id= m.employee_id
+WHERE e.salary<30000
+AND e.manager_id IS NOT NULL
+AND m.employee_id IS NULL
+ORDER BY e.employee_id;
 
 
 
