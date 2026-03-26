@@ -406,3 +406,24 @@ FROM CheckedRows
 WHERE
 tiv_2015_count>1
 AND loc_count=1;
+
+/*43 .Write a solution to find the employees who are high earners in each of the departments. Return
+the result table in any order. */
+WITH salary_ranking AS(
+ SELECT department.name AS Department,
+ employee.name AS Employee,
+ employee.salary AS Salary,
+ DENSE_RANK() OVER( PARTITION BY department.name 
+ ORDER BY employee.salary DESC) AS ranking
+ FROM employee
+ LEFT JOIN department ON employee.departmentId=department.id
+ )
+SELECT Department,Employee,Salary
+FROM salary_ranking
+WHERE ranking<=3;
+
+/* 44.Write solution to fix the names so that only the first character is uppercase and
+the rest are lowercase. Return the result table ordered by user_id. */
+SELECT user_id,UPPER(LEFT(name,1))|| LOWER(RIGHT(name,-1)) AS name
+FROM users
+ORDER BY 1;
