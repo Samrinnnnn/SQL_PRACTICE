@@ -443,7 +443,41 @@ ORDER BY email,id;
 DROP TABLE person;
 ALTER TABLE temp_user RENAME TO person;
 
+/* 47. Write a solution to find the second highest distinct salary from the Employee
+table.If there is no second highest salary, return null(return None in Pandas). */
+SELECT MAX(salary) AS SecondHighestSalary
+FROM employee
+WHERE salary<
+( SELECT MAX(salary)
+ FROM employee
+ );
 
+/* 48. Write a solution to find for each date the number of different products sold
+and their names.The sold products names for each date should be sorted lexicographically.
+Return the result table ordered by sell_date. */
+SELECT sell_date,COUNT(DISTINCT product) AS num_sold,
+ STRING_AGG(DISTINCT product,',' ORDER BY product)
+AS products
+FROM Activities
+GROUP BY sell_date
+ORDER BY 1 ASC;
 
+/* 49. Write a solution to get the names of products that have at least 100 units
+ordered in February 2020 and their amount. Return the result table in any order. */
+SELECT p.product_name,SUM(o.unit) AS unit
+FROM Products p
+JOIN Orders o ON p.product_id=o.product_id
+WHERE o.order_date BETWEEN DATE'2020-02-01' AND DATE '2020-02-29'
+GROUP BY p.product_name
+HAVING SUM(o.unit)>=100;
+
+/*50. Write a solution to find the users who have valid emails.A valid email has a prefix name and a domain where: 
+The prefix name is a string that may contain letters (upper or lower case), digits, underscore '_', period '.', and/or dash '-'.
+The prefix name must start with a letter.
+The domain is '@leetcode.com'.Return the result table in any order. */
+
+SELECT user_id, name, mail
+FROM Users
+WHERE mail ~ '^[A-Za-z][A-Za-z0-9._-]*@leetcode\.com$';
 
 
