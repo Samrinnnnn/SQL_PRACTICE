@@ -334,5 +334,30 @@ END AS id, student
 FROM Seat
 ORDER BY id;
 
+/* 39. Write a solution to: Find the name of user who has rated the greatest
+number of movies.In case of a tie,return the lexicographically smaller
+user name.Find the movie name with the highest average rating in Feb 2020.
+In case of a tie, return the lexicographically smaller movie name. */
+(SELECT u.name AS results
+ FROM users u
+ JOIN movierating m
+ ON u.user_id=m.user_id
+ GROUP BY u.user_id,u.name
+ ORDER BY COUNT(u.user_id) DESC,u.name ASC
+ LIMIT 1)
+UNION ALL
+(SELECT results
+ FROM (
+ SELECT mo.title as results,AVG(rating) AS avg
+ FROM movies mo
+ JOIN movierating m
+ ON mo.movie_id=m.movie_id
+ WHERE created_at >= '2020-02-01' AND 
+ created_at< '2020-03-01'
+ GROUP BY m.movie_id,m.title
+ ORDER BY avg DESC,m.title ASC)
+ AS results
+ LIMIT 1);
+ LIMIT 1)
 
 
