@@ -427,3 +427,23 @@ the rest are lowercase. Return the result table ordered by user_id. */
 SELECT user_id,UPPER(LEFT(name,1))|| LOWER(RIGHT(name,-1)) AS name
 FROM users
 ORDER BY 1;
+
+/* 45. Write a solution to find the patient_id,patient_name,and conditions of patients 
+who have Type I Diabetes.Type I Diabetes always starts with DIAB1 prefix.Return
+the result table in any order. */
+SELECT patient_id,patient_name,conditions
+FROM Patients
+WHERE conditions LIKE '% DIAB1%' OR conditions LIKE 'DIAB1%';
+
+/*46. Write a solution to delete all duplicate emails,keeping only one unique 
+email with smallest id. */
+CREATE TABLE temp_user AS
+SELECT DISTINCT ON (email) id,email FROM person
+ORDER BY email,id;
+DROP TABLE person;
+ALTER TABLE temp_user RENAME TO person;
+
+
+
+
+
