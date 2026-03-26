@@ -360,4 +360,17 @@ UNION ALL
  LIMIT 1);
  LIMIT 1)
 
-
+/* 40. Compute the moving average of how much the customer paid in 
+a seven days window(i.e current day + 6 days before).average_amount should be 
+rounded to two decimal places.Return result table ordered by visited_on
+in ascending order. */
+SELECT visited_on,SUM(total) OVER (ORDER BY visited_on rows between 6 
+preceding and current row) as amount,
+ROUND(AVG(total) OVER(ORDER BY visited_on rows between 6 preceding 
+  and current row),2) AS average_amount
+FROM(
+  SELECT visited_on, sum(amount) as total
+  FROM customer
+  GROUP BY visited_on
+  )
+LIMIT 10000 offset 6
